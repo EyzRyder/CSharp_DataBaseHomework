@@ -46,12 +46,13 @@ namespace DataBaseHomework
 
         private void btnUpdateUser_Click(object sender, EventArgs e)
         {
+            listView1.Items.Clear();
             listUsers();
             updateUser();
         }
         private void SaveUser()
         {
-            string connectionString = "datasource=127.0.0.1;port=3306;username=root;password=;database=csharpdb;";
+            string connectionString = "datasource=127.0.0.1;port=3306;username=root;password=;database=nossobanco;";
             string query = "INSERT INTO user(`id`, `first_name`, `last_name`, `address`) VALUES (NULL, '" + txtBoxfrstNm.Text + "', '" + txtBoxLstNm.Text + "', '" + txtBoxDress.Text + "')";
             // Which could be translated manually to :
             // INSERT INTO user(`id`, `first_name`, `last_name`, `address`) VALUES (NULL, 'Bruce', 'Wayne', 'Wayne Manor')
@@ -77,7 +78,7 @@ namespace DataBaseHomework
         }
         private void listUsers()
         {
-            string connectionString = "datasource=127.0.0.1;port=3306;username=root;password=;database=csharpdb;";
+            string connectionString = "datasource=127.0.0.1;port=3306;username=root;password=;database=nossobanco;";
             // Select all
             string query = "SELECT * FROM user";
 
@@ -119,7 +120,7 @@ namespace DataBaseHomework
         }
         private void updateUser()
         {
-            string connectionString = "datasource=127.0.0.1;port=3306;username=root;password=;database=csharpdb;";
+            string connectionString = "datasource=127.0.0.1;port=3306;username=root;password=;database=nossobanco;";
             // Update the properties of the row with ID 1
             string query = "UPDATE `user` SET `first_name`='MF',`last_name`='DOOM',`address`='NEWYORK' WHERE id = 4";
 
@@ -145,9 +146,11 @@ namespace DataBaseHomework
         }
         private void deleteUser()
         {
-            string connectionString = "datasource=127.0.0.1;port=3306;username=root;password=;database=CSharpDB;";
-            // Delete the item with ID 1 
-            string query = "DELETE FROM `user` WHERE id = 1";
+            string connectionString = "datasource=127.0.0.1;port=3306;username=root;password=;database=nossobanco;";
+            // Delete the item with ID 1
+            string id = listView1.SelectedItems[0].Text.ToString();
+            string query = "DELETE FROM `user` WHERE id ="+id;
+
 
             MySqlConnection databaseConnection = new MySqlConnection(connectionString);
             MySqlCommand commandDatabase = new MySqlCommand(query, databaseConnection);
@@ -175,7 +178,7 @@ namespace DataBaseHomework
             // Change the username, password and database according to your needs
             // You can ignore the database option if you want to access all of them.
             // 127.0.0.1 stands for localhost and the default port to connect.
-            string connectionString = "datasource=127.0.0.1;port=3306;username=root;password=;database=CSharpDB;";
+            string connectionString = "datasource=127.0.0.1;port=3306;username=root;password=;database=nossobanco;";
             // Your query,
             string query = "SELECT * FROM user";
 
@@ -223,11 +226,19 @@ namespace DataBaseHomework
             }
         }
 
-   
+        private void listView1_SelSectedIndexChanged(object sender, EventArgs e)
+        {
+
+        }
 
         private void listView1_SelectedIndexChanged(object sender, EventArgs e)
         {
 
+        }
+
+        private void btnDelet_Click(object sender, EventArgs e)
+        {
+            deleteUser();
         }
     }
 }
